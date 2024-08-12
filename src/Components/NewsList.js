@@ -1,4 +1,3 @@
-// src/Components/NewsList.js
 import { useState } from "react";
 import useNewsData from "../hooks/useNewsData";
 import CustomPagination from "./CustomPagination";
@@ -11,6 +10,11 @@ const NewsList = ({ category, searchTerm, bookmarks, toggleBookmark, handleShare
   const onPageChange = (pageNumber) => setCurrentPage(pageNumber);
 
   const { newsData, loading, error } = useNewsData(category, searchTerm);
+
+  console.log('Search Term:', searchTerm);
+  console.log('News Data:', newsData);
+  console.log('Loading:', loading);
+  console.log('Error:', error);
 
   if (loading) {
     return <div className="loading">Loading...</div>;
@@ -42,11 +46,13 @@ const NewsList = ({ category, searchTerm, bookmarks, toggleBookmark, handleShare
               <h2 className="news-title">{article.title}</h2>
               <p className="news-description">{article.description}</p>
               <a href={article.url} className="news-link" target="_blank" rel="noopener noreferrer">Read More</a>
+              <div className="Ops">
               <button onClick={() => toggleBookmark(article)}>
                 {bookmarks.includes(article.url) ? 'Unbookmark' : 'Bookmark'}
               </button>
               <button onClick={() => cacheArticleForOffline(article)}>Download for Offline</button>
               <button onClick={() => handleShare(article.url)}>Share</button>
+              </div>
             </div>
           </div>
         ))}
